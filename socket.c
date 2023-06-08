@@ -12,8 +12,11 @@ void *connect_cb(void *arg){//connect！！！
         //向服务器发起连接，第一个灯亮
         led_on(0);
         ret = connect(g_socketfd, (struct sockaddr *)&server_addr, sizeof(server_addr));
-        if(ret==-1) 
+        if(ret==-1){
+            sleep(5);
             continue;
+        } 
+            
         else{//连接成功，点亮四个led
             led_on(0);
             led_on(1);

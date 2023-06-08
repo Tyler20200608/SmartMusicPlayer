@@ -11,6 +11,8 @@
 #include <sys/socket.h>
 #include <pthread.h>
 #include <string.h>
+#include <unistd.h>
+#include <sys/time.h>
 
 #define SUCCESS 1000
 #define FAILURE 1001
