@@ -4,6 +4,7 @@ int g_buttonfd;
 int g_ledfd;
 int g_mixerfd;
 int g_socketfd;
+struct Node *head;
 
 int main(){
     int ret;
@@ -19,5 +20,14 @@ int main(){
         led_on(0);
         led_on(1);//初始化失败，点亮两个led
     }
+
+    //初始化链表
+    ret=InitLink();
+    if(ret==FAILURE){
+        printf("链表初始化失败");
+        exit(1);
+    }
+    //读取音乐
+    GetMusic();
     return 0;
 }
