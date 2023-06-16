@@ -2,7 +2,7 @@
 
 int m_mp3_end(const char *name){
     const char *ptr = name;
-    while(*name!='\0'){
+    while(*ptr!='\0'){
         ptr++;
     }    
     for (int i = 0; i < 4;i++){
@@ -11,6 +11,7 @@ int m_mp3_end(const char *name){
     if(ptr<name){
         return 0;
     }
+    //printf("%s\n", name);//test
     return !(strcmp(ptr, ".mp3"));
 }
 
@@ -25,17 +26,22 @@ void GetMusic(){
 
 
     // 读取目录
-
-    while ((struct dirent *file = readdir(dir)) != NULL)
+    struct dirent *file=NULL; 
+//printf("???1\n");
+    while ((file= readdir(dir)) != NULL)
     {
-        if (file->d_type != 10)
+        //printf("???2\n");
+        if (file->d_type != 8)
         {
+            //printf("1%s\n", file->d_name);//test
             continue; // 不是普通文件
         }
         else
         {
+            //printf("？？？？：%s\n", file->d_name);//test
             if (!m_mp3_end(file->d_name))//不是mp3文件
             {
+                //printf("%s\n", file->d_name);//test
                 continue;
             }
         }
