@@ -55,3 +55,21 @@ void GetMusic(){
         }
     }
 }
+
+int InitShm(){
+    int shmid = shmget(SHMKEY,SHMSIZE,IPC_CREAT|IPC_EXCL);//创建共享内存
+    if(shmid==-1){
+        return FAILURE;
+    }
+
+    g_addr = shmat(shmid, NULL, 0);
+    if(addr==NULL){
+        return FAILURE;
+    }
+
+
+}
+
+void start_play(){
+    
+}

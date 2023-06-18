@@ -5,7 +5,7 @@ int g_ledfd;
 int g_mixerfd;
 int g_socketfd;
 struct Node *head;
-
+void *g_addr = NULL;
 int main(){
     int ret;
     // ret = InitDriver();//打开设备文件
@@ -25,6 +25,13 @@ int main(){
     ret=InitLink();
     if(ret==FAILURE){
         printf("链表初始化失败");
+        exit(1);
+    }
+
+    //初始化共享内存
+    ret = InitShm();
+    if(ret==FAILURE){
+        printf("共享内存初始化失败");
         exit(1);
     }
     //读取音乐
