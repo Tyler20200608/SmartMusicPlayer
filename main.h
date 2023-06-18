@@ -16,27 +16,46 @@
 #include <arpa/inet.h>
 #include <sys/ipc.h>
 #include <sys/shm.h>
+#include <sys/wait.h>
+#include <time.h>
 
 
 #define SUCCESS 1000
 #define FAILURE 1001
 #define SERVER_PORT 8000
 #define SERVER_IP "127.0.0.1"
-#define MUSICPATH "/home/tyler/code_C_CPP/music_player"
+#define MUSICPATH "/home/tyler/code_C_CPP/music_player/"
+#define MADPLAYPATH "/usr/local/bin/madplay"
+#define COMMAND1 "madplay -o wav:- "
+#define COMMAND2 " | aplay"
 #define SHMKEY 1234
 #define SHMSIZE 4096
+#define SEQUENCEMODE 1//播放模式，后续改为枚举enum
+#define RANDOMNMODE 2
+#define CIRCLEMODE 3
 
 typedef struct Node
 {
     char music_name[64];
     struct Node *next;
+    struct Node *prior;
 }Node;
 
+struct shm//共享内存数据
+{
+    int play_mode;
+    char cur_name[64];
+    pid_t parent_pid;
+    pid_t child_pid;
+    pid_t grand_pid;
+};
 
 extern int g_buttonfd;
 extern int g_ledfd;
 extern int g_mixerfd;
 extern int g_socketfd;
+extern int g_start_flag;
+extern int g_suspend_flag;
 extern Node *head;
 extern void *g_addr;
 int InitDriver();
@@ -52,3 +71,4 @@ int InitLink();
 int InsertLink(Node *head,const char *name);
 int InitShm();
 void start_play();
+void FindNextMusic(const char *cur, int mode, char *next);

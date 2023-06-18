@@ -4,6 +4,8 @@ int g_buttonfd;
 int g_ledfd;
 int g_mixerfd;
 int g_socketfd;
+int g_start_flag = 0;//表示没有开始播放音乐
+int g_suspend_flag = 0;//表示没有暂停播放音乐
 struct Node *head;
 void *g_addr = NULL;
 int main(){
