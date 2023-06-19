@@ -4,7 +4,7 @@
 int InitLink(){
     head = (Node *)malloc(sizeof(Node));
     if(head==NULL){
-        return FALLURE;
+        return FAILURE;
     }
     head->next = head;
     head->prior = head;
@@ -12,7 +12,7 @@ int InitLink(){
 }
 
 int InsertLink(Node *head,const char *name){
-    if(head==NULL||n==NULL){
+    if(head==NULL||name==NULL){
         return FAILURE;
     }
     Node *end = head->prior;

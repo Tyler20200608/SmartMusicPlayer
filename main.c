@@ -1,4 +1,7 @@
 #include "main.h"
+// #include <stdlib.h>
+// #include <stdio.h>
+// #include <unistd.h>
 
 int g_buttonfd;
 int g_ledfd;
@@ -16,12 +19,12 @@ int main(){
     //     exit(1);
     // }
 
-    ret = InitSocket();//初始化网络
-    if(ret==FAILURE){
-        printf("socket init failure\n");
-        led_on(0);
-        led_on(1);//初始化失败，点亮两个led
-    }
+    // ret = InitSocket();//初始化网络
+    // if(ret==FAILURE){
+    //     printf("socket init failure\n");
+    //     led_on(0);
+    //     led_on(1);//初始化失败，点亮两个led
+    // }
 
     //初始化链表
     ret=InitLink();
@@ -29,14 +32,16 @@ int main(){
         printf("链表初始化失败");
         exit(1);
     }
-
+// printf("1\n");
     //初始化共享内存
     ret = InitShm();
     if(ret==FAILURE){
         printf("共享内存初始化失败");
         exit(1);
     }
+    
     //读取音乐
     GetMusic();
+    start_play();
     return 0;
 }

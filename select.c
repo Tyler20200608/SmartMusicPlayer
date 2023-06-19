@@ -24,9 +24,9 @@ void m_select(){
         if(ret==-1){
             perror("select");
         }
-        if(FD_ISSET(sockfd,&tmpfd)){//TCP有数据可读
+        if(FD_ISSET(g_socketfd,&tmpfd)){//TCP有数据可读
 
-        }else if(FD_ISSET(g_buttonfd,&tmpfd)){按键有数据可读
+        }else if(FD_ISSET(g_buttonfd,&tmpfd)){//按键有数据可读
 
         }else if(FD_ISSET(0,&tmpfd)){//测试标准输入有数据可读
 

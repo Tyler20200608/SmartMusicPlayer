@@ -34,6 +34,15 @@
 #define RANDOMNMODE 2
 #define CIRCLEMODE 3
 
+//共享内存数据
+struct shm{
+    int play_mode;
+    char cur_name[64];
+    pid_t parent_pid;
+    pid_t child_pid;
+    pid_t grand_pid;
+};
+
 typedef struct Node
 {
     char music_name[64];
@@ -41,14 +50,11 @@ typedef struct Node
     struct Node *prior;
 }Node;
 
-struct shm//共享内存数据
-{
-    int play_mode;
-    char cur_name[64];
-    pid_t parent_pid;
-    pid_t child_pid;
-    pid_t grand_pid;
-};
+
+
+
+
+
 
 extern int g_buttonfd;
 extern int g_ledfd;
@@ -61,8 +67,8 @@ extern void *g_addr;
 int InitDriver();
 int InitSocket();
 void *connect_cb(void *arg);
-int led_on(int which);
-int led_off(int which);
+void led_on(int which);
+void led_off(int which);
 void show();
 void m_select();
 int m_mp3_end(const char *name);
@@ -72,3 +78,4 @@ int InsertLink(Node *head,const char *name);
 int InitShm();
 void start_play();
 void FindNextMusic(const char *cur, int mode, char *next);
+

@@ -26,8 +26,7 @@ void *connect_cb(void *arg){//connect！！！
             break;
         }
     }
-    
-
+    return NULL;
 }
 
 int InitSocket(){

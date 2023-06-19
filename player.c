@@ -57,19 +57,25 @@ void GetMusic(){
 }
 
 int InitShm(){
-    int shmid = shmget(SHMKEY,SHMSIZE,IPC_CREAT|IPC_EXCL);//创建共享内存
+    void *addr2=NULL;
+    //printf("1\n");
+    int shmid = shmget(SHMKEY,SHMSIZE,0644 | IPC_CREAT);//创建共享内存
     if(shmid==-1){
         return FAILURE;
     }
 
-    g_addr = shmat(shmid, NULL, 0);
-    if(addr==NULL){
+    addr2 = shmat(shmid, NULL, 0);
+    if(addr2==NULL){
         return FAILURE;
     }
+    
     struct shm s;
     s.play_mode = SEQUENCEMODE;
     s.parent_pid = getpid();
-    memcpy(g_addr, &s,sizeof(s));
+    printf("111\n");
+    memcpy((char *)addr2, &s,sizeof(s));
+    printf("2\n");
+    return SUCCESS;
 }
 
 void play_music(const char *name){
@@ -78,8 +84,9 @@ void play_music(const char *name){
         perror("child fork failed");
         exit(1);
     }else if(child_pid==0){//子进程
-        while(1){
-            pid_t grand_pid=fork();
+        pid_t grand_pid = -1;
+        while(grand_pid!=0){
+            grand_pid=vfork();
             if(grand_pid==-1){
                 perror("grand fork failed");
                 exit(1);
@@ -105,7 +112,7 @@ void play_music(const char *name){
                 }else{//遍历链表，找到下一首歌
                     //判断播放模式，找到下一首歌曲
                     memcpy(&s, addr, sizeof(s));
-                    (cur_name, FindNextMusic(s.cur_name,s.play_mode,cur_name);
+                    FindNextMusic(s.cur_name,s.play_mode,cur_name);
 
                 }
 
@@ -129,11 +136,11 @@ void play_music(const char *name){
 
 
             }else{//子进程
-                memset(name, 0, strlen(name));//歌曲长度变为0，方便下次操作
+                memset((void *)name, 0, strlen(name));//歌曲长度变为0，方便下次操作
                 
 
-                int *status;
-                waitpid(grand_pid, status, 0); // 回收孙进程
+                int status;
+                waitpid(grand_pid, &status, 0); // 回收孙进程
             }
         }
 

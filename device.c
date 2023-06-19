@@ -16,8 +16,8 @@ int InitDriver(){
     for (int i = 0; i < 4;i++){
         ioctl(g_ledfd, 0, i);
     }
-        // 打开mixer设备文件
-        g_mixerfd = open("/dev/mixer", O_WRONLY);
+    // 打开mixer设备文件
+    g_mixerfd = open("/dev/mixer", O_WRONLY);
     if(g_mixerfd==-1){
         return FAILURE;
     }
@@ -25,10 +25,10 @@ int InitDriver(){
     return SUCCESS;
 }
 
-int led_on(int which){
+void led_on(int which){
     ioctl(g_ledfd, 1, which);
 }
 
-int led_off(int which){
+void led_off(int which){
     ioctl(g_ledfd, 0, which);
 }
