@@ -64,6 +64,7 @@ extern int g_start_flag;
 extern int g_suspend_flag;
 extern Node *head;
 extern void *g_addr;
+extern int g_mode;
 int InitDriver();
 int InitSocket();
 void *connect_cb(void *arg);
@@ -78,4 +79,7 @@ int InsertLink(Node *head,const char *name);
 int InitShm();
 void start_play();
 void FindNextMusic(const char *cur, int mode, char *next);
+void pause_play();
+void unpause_play();
+void FindPriorMusic(const char *cur,int mode,char *prior);
 

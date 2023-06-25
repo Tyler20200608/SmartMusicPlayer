@@ -37,6 +37,7 @@ int InsertLink(Node *head,const char *name){
 void FindNextMusic(const char *cur,int mode,char *next){//根据当前歌曲和播放模式找到下一首歌
     if (mode==CIRCLEMODE){//单曲循环
         strcpy(next, cur);
+        //printf("CIRCLE：\n");//
         return;
     }else if(mode==SEQUENCEMODE){//顺序播放
         Node *p = head->next;
@@ -49,6 +50,7 @@ void FindNextMusic(const char *cur,int mode,char *next){//根据当前歌曲和�
             p = p->next;
             strcpy(next, p->next->music_name);
         }
+        //printf("SEQUENCE：\n");//
         return;
     }else if(mode==RANDOMNMODE){//随机播放
         Node *p = head->next;
@@ -61,6 +63,45 @@ void FindNextMusic(const char *cur,int mode,char *next){//根据当前歌曲和�
             p = p->next;
         }
         strcpy(next, p->music_name);
+        //printf("RANDOM：\n");//
+        return;
+    }
+
+    
+}
+
+
+//cur当前 next下一首 mode模式
+void FindPriorMusic(const char *cur,int mode,char *prior){//根据当前歌曲和播放模式找到下一首歌
+    if (mode==CIRCLEMODE){//单曲循环
+        strcpy(prior, cur);
+        //printf("CIRCLE：\n");//
+        return;
+    }else if(mode==SEQUENCEMODE){//顺序播放
+        Node *p = head->prior;
+        while(strcmp(p->music_name,cur)!=0){
+            p = p->prior;
+        }
+        if(p->prior!=head){//跳过头结点，插入时头结点没有插入数据
+            strcpy(prior, p->prior->music_name);
+        }else{
+            p = p->prior;
+            strcpy(prior, p->prior->music_name);
+        }
+        //printf("SEQUENCE：\n");//
+        return;
+    }else if(mode==RANDOMNMODE){//随机播放
+        Node *p = head->next;
+        srand(time(NULL));
+        int num = rand() % 100;
+        for (int i = 0; i < num;i++){
+            p = p->next;
+        }
+        if(p==head){//跳过头结点
+            p = p->next;
+        }
+        strcpy(prior, p->music_name);
+        //printf("RANDOM：\n");//
         return;
     }
 

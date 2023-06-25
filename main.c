@@ -3,12 +3,13 @@
 // #include <stdio.h>
 // #include <unistd.h>
 
-int g_buttonfd;
-int g_ledfd;
+int g_buttonfd=0;
+int g_ledfd=0;
 int g_mixerfd;
-int g_socketfd;
+int g_socketfd=0;
 int g_start_flag = 0;//表示没有开始播放音乐
 int g_suspend_flag = 0;//表示没有暂停播放音乐
+int g_mode=1;//播放模式
 struct Node *head;
 void *g_addr = NULL;
 int main(){
@@ -42,6 +43,18 @@ int main(){
     
     //读取音乐
     GetMusic();
+    // char cur_name[64];
+    // FindNextMusic("1.mp3",SEQUENCEMODE,cur_name);
+    // printf("1mp3:%s",cur_name);
+
+    // FindNextMusic("2.mp3",SEQUENCEMODE,cur_name);
+    // printf("2mp3:%s",cur_name);
+
+    // FindNextMusic("3.mp3",SEQUENCEMODE,cur_name);
+    // printf("3mp3:%s",cur_name);
     start_play();
+    //m_select();
+
+    
     return 0;
 }

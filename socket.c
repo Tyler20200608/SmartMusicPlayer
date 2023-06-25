@@ -18,11 +18,13 @@ void *connect_cb(void *arg){//connect！！！
         } 
             
         else{//连接成功，点亮四个led
-            led_on(0);
-            led_on(1);
-            led_on(2);
-            led_on(3);
-            led_on(4);
+            // led_on(0);
+            // led_on(1);
+            // led_on(2);
+            // led_on(3);
+            // led_on(4);
+
+            printf("connect success\n");
             break;
         }
     }

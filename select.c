@@ -15,21 +15,44 @@ void m_select(){
     FD_ZERO(&readfd);
     FD_ZERO(&tmpfd);
 
-    FD_SET(g_buttonfd, &readfd);
-    FD_SET(g_socketfd, &readfd);
+    //FD_SET(g_buttonfd, &readfd);
+    //FD_SET(g_socketfd, &readfd);
     FD_SET(0, &readfd);
+    printf("111\n");
     while(1){
         tmpfd = readfd;
-        ret = select(maxfd + 1, &tmpfd, NULL, NULL, NULL);
+        ret = select(maxfd + 1, &readfd, NULL, NULL, NULL);
         if(ret==-1){
             perror("select");
+            
         }
-        if(FD_ISSET(g_socketfd,&tmpfd)){//TCP有数据可读
 
-        }else if(FD_ISSET(g_buttonfd,&tmpfd)){//按键有数据可读
-
-        }else if(FD_ISSET(0,&tmpfd)){//测试标准输入有数据可读
-
+        if(FD_ISSET(0,&readfd)){//测试标准输入有数据可读
+            //printf("222\n");
+            int in;
+            scanf("%d",&in);
+            switch (in)
+            {
+            case 1: start_play();
+                break;
+            case 2: pause_play();
+                break;
+            case 3: unpause_play();
+                break;
+            default:
+                break;
+            }
+            
         }
+        // if(FD_ISSET(g_socketfd,&readfd)){//TCP有数据可读
+
+        // }else if(FD_ISSET(g_buttonfd,&readfd)){//按键有数据可读
+
+        // }else if(FD_ISSET(0,&readfd)){//测试标准输入有数据可读
+        //     printf("222\n");
+        //     int in;
+        //     scanf("%d",&in);
+        //     start_play();
+        // }
     }
 }
