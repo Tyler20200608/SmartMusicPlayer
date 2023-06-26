@@ -43,8 +43,34 @@ void m_select(){
                 break;
             }
             
+        }else if(FD_ISSET(g_socketfd,&readfd)){//TCP有数据可读
+            int ret = read(client_socket, buf, SIZE-1);
+		    if(ret == -1)
+		    {
+		    	perror("read");
+		    	break;
+		    }
+		    if(ret == 0)
+		    {
+		    	break;
+		    }
+		    buf[ret] = '\0';
+            char buf[SIZE];
+            //
+            if(strncmp(buf, "7", 1) == 0)     //播放指定歌曲
+		    {
+		    	//break;
+		    }else if(strncmp(buf, "8", 1) == 0){//上传歌曲
+		    	//
+		    }else if(strncmp(buf, "9", 1) == 0){//单曲循环
+		    	//
+		    }else if(strncmp(buf, "0", 1) == 0){//随机播放
+		    	//
+		    }else if(strncmp(buf, "end", 3) == 0){//结束
+		    	break;
+		    }
         }
-        // if(FD_ISSET(g_socketfd,&readfd)){//TCP有数据可读
+        // if(FD_ISSET(g_socketfd,&readfd)){
 
         // }else if(FD_ISSET(g_buttonfd,&readfd)){//按键有数据可读
 
