@@ -44,7 +44,7 @@ void m_select(){
             }
             
         }else if(FD_ISSET(g_socketfd,&readfd)){//TCP有数据可读
-            int ret = read(client_socket, buf, SIZE-1);
+            int ret = read(g_socketfd, buf, SIZE-1);
 		    if(ret == -1)
 		    {
 		    	perror("read");
@@ -60,15 +60,22 @@ void m_select(){
             if(strncmp(buf, "7", 1) == 0)     //播放指定歌曲
 		    {
 		    	//break;
-		    }else if(strncmp(buf, "8", 1) == 0){//上传歌曲
+                printf("7\n");
+            }else if(strncmp(buf, "8", 1) == 0){//上传歌曲
 		    	//
+                printf("8\n");
 		    }else if(strncmp(buf, "9", 1) == 0){//单曲循环
 		    	//
+                printf("9\n");
 		    }else if(strncmp(buf, "0", 1) == 0){//随机播放
 		    	//
+                printf("0\n");
 		    }else if(strncmp(buf, "end", 3) == 0){//结束
 		    	break;
-		    }
+		    }else{//1~6
+                printf("1~6\n");
+
+            }
         }
         // if(FD_ISSET(g_socketfd,&readfd)){
 

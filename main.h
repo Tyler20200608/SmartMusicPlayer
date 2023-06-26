@@ -22,8 +22,8 @@
 
 #define SUCCESS 1000
 #define FAILURE 1001
-#define SERVER_PORT 8000
-#define SERVER_IP "127.0.0.1"
+#define SERVER_PORT 8080
+#define SERVER_IP "39.105.7.127"
 #define MUSICPATH "/home/tyler/code_C_CPP/music_player/"
 #define MADPLAYPATH "/usr/local/bin/madplay"
 #define COMMAND1 "madplay -o wav:- "
